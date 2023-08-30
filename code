@@ -1,0 +1,83 @@
+--Dataset: Trends in Startups Table 
+--Source: SQL Course, Codecademy
+--Queried using: SQLite 
+
+--First, answer questions prompted in the course.
+  
+  #1. Getting started, take a look at the startups table. 
+SELECT * 
+FROM startups;
+
+  #2.Calculate the total number of companies in the table.
+SELECT COUNT(*)
+FROM startups;
+=70 companies
+
+  #3. We want to know the total value of all companies in this table. Calculate this by getting the SUM() of the valuation column.
+SELECT SUM(valuation)
+FROM startups;
+=$974,455,790,000
+
+  #4. What is the highest amount raised by a startup? Return the maximum amount of money raised.
+SELECT MAX(raised)
+FROM startups;
+=$11500000000
+
+  #5. Edit the query so that it returns the maximum amount of money raised, during ‘Seed’ stage.
+SELECT MAX(raised)
+FROM startups
+WHERE stage = 'Seed';
+=$1800000
+
+  #6. In what year was the oldest company on the list founded?
+SELECT MIN(founded)
+FROM startups;
+=1994
+
+  #7. Return the average valuation.
+SELECT AVG(valuation)
+FROM startups;
+=$15974685081.9672
+
+  #8. Return the average valuation, in each category.
+SELECT category, AVG(valuation)
+FROM startups
+GROUP BY category;
+
+  #9. Return the average valuation, in each category. Round the averages to two decimal places.
+SELECT category, ROUND(AVG(valuation), 2)
+FROM startups
+GROUP BY category;
+
+  #10. Return the average valuation, in each category. Round the averages to two decimal places. Lastly, order the list from highest averages to lowest.
+SELECT category, ROUND(AVG(valuation), 2)
+FROM startups
+GROUP BY 1
+ORDER BY 2 DESC;  
+= Health Care startups seem to have higher valuations than other categories.
+
+  #11. What are the most competitive markets?
+SELECT category, COUNT(*)
+FROM startups
+GROUP BY category
+HAVING COUNT(*) > 3
+ORDER BY 2 DESC;
+= The most competitive markets are:
+1. Social
+2. Mobile
+3. Education
+
+  #12. What is the average size of a startup in each location?
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location;
+
+  13. What is the average size of a startup in each location, with average sizes above 500?
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location
+HAVING AVG(employees) > 500;
+= Brooklyn - 503
+  New York - 703
+  San Franciso - 1921
+  Silicon Valley - 1805
